@@ -28,9 +28,11 @@ int main(int argc, char* argv[]){
 
     //Initialize the parameters for the height anf the stability of an avl
     int hStation = 0;
+    int hConso = 0;
 
     //Initialize the tree of the station
     tree* stationTree = NULL;
+    tree* consoTree = NULL;
 
 
     //Open the file which contains the data and check if all is right
@@ -42,7 +44,8 @@ int main(int argc, char* argv[]){
 
 
     //Take data of a file and add it to a tree
-    ensembleDonne(fichier, &hStation, &stationTree, type);
+    ensembleDonne(fichier, &hStation, &hConso, &stationTree, &consoTree, type);
+    parcours1(consoTree, &stationTree);
     parcours(stationTree);
     //Initialize tree
     freeAvl(stationTree);

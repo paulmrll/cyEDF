@@ -19,7 +19,26 @@ void parcoursRefresh(tree** head, Data a) {
 
     }
 }
-
+void parcours2(Data a, tree** stationTree){
+    if (*stationTree != NULL){
+        if (a.id == (*stationTree)->a.id) {
+            (*stationTree)->a.consumption += a.consumption;
+        } else {
+            if (a.id < (*stationTree)->a.id){
+                parcours2(a, &(*stationTree)->fg);
+            } else {
+                parcours2(a, &(*stationTree)->fd);
+            }
+        }
+    }
+}
+void parcours1(tree* consoTree, tree** stationTree){
+    if (consoTree != NULL && stationTree != NULL){
+        parcours2(consoTree->a, stationTree);
+        parcours1(consoTree->fg, stationTree);
+        parcours1(consoTree->fd, stationTree);
+    }
+}
 void parcours(tree* head){
     if (head != NULL){
         putInFile(head);

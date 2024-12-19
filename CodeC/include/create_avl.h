@@ -62,6 +62,7 @@ tree* insertStation(tree* head, Data a, int* h);
  * @param i
  * Add data to a tree
  */
-void addTree(tree** stationTree, Data b, int* hStation, char* station, Data* tmp, int* i);
+void addTree(tree** stationTree, tree** consoTree, Data b, int* hStation, int* hConso, char* station, Data* tmp, int* i);
 
-#endif //create_AVL
+tree* insertConso(tree* head, Data a, int* h);
+#endif //create_AVL_H

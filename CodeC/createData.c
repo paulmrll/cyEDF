@@ -45,7 +45,7 @@ FILE* transformerFichier(FILE* fichier) {
  * @param stationTree Pointer to the tree structure
  * @param type Data type
  */
-void ensembleDonne(FILE* fichier, int* hStation, tree** stationTree, char* type) {
+void ensembleDonne(FILE* fichier, int* hStation, int* hConso, tree** stationTree, tree** consoTree, char* type) {
     if (fichier == NULL || hStation == NULL || stationTree == NULL || type == NULL) {
         fprintf(stderr, "Erreur : arguments invalides.\n");
         exit(30);
@@ -70,7 +70,7 @@ void ensembleDonne(FILE* fichier, int* hStation, tree** stationTree, char* type)
                &tmp->company, &tmp->consumer, &tmp->production, &tmp->consumption);
 
         // Ajouter les données à l'arbre
-        addTree(stationTree, *tmp, hStation, type, tmp, &i);
+        addTree(stationTree, consoTree, *tmp, hStation, hStation, type, tmp, &i);
     }
 
     Data b;
@@ -82,7 +82,7 @@ void ensembleDonne(FILE* fichier, int* hStation, tree** stationTree, char* type)
                &b.company, &b.consumer, &b.production, &b.consumption);
 
         // Ajouter les données à l'arbre
-        addTree(stationTree, b, hStation, type, tmp, &i);
+        addTree(stationTree, consoTree, b, hStation, hConso, type, tmp, &i);
 
     }
 

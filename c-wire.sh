@@ -233,7 +233,7 @@ else  # Else launch the compilation with the Makefile
   cd $dir_origine || exit 0
 fi
 
-grep -v -E '^gcc|^./exe' "tmp/out_data.txt" > tmp/temp.txt
+grep -v -E '^gcc|^./exe|30' "tmp/out_data.txt" > tmp/temp.txt
 
 
 input_file="tmp/temp.txt"
@@ -338,4 +338,4 @@ PROCESSUS_TIME=$((END_TIME - START_TIME)) # Calculs the processus time
 echo "The program last : $PROCESSUS_TIME seconds" # Display the processus time
 echo "$ascii3" # Display the third ASCII
 
-#rm tmp/* # Empty the tmp file
+rm tmp/* # Empty the tmp file

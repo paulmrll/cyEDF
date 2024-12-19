@@ -136,6 +136,44 @@ tree* insertStation(tree* head, Data a, int* h) {
     }
     return head;
 }
+tree* insertConso(tree* head, Data a, int* h) {
+    if (h == NULL){
+        exit(40);
+    }
+    if (head == NULL) {
+        *h = 1;
+        return create(a);
+    }
+    if (a.id < head->a.production) {
+        head->fg = insertConso(head->fg, a, h);
+        *h = -*h;
+    } else if (head->a.production < a.id) {
+        head->fd = insertConso(head->fd, a, h);
+    } else {
+        if (a.id < head->a.consumption) {
+            head->fg = insertConso(head->fg, a, h);
+            *h = -*h;
+        } else if (head->a.consumption < a.id) {
+            head->fd = insertConso(head->fd, a, h);
+        } else {
+            *h = 0;
+            return head;
+        }
+    }
+    if (*h != 0) {
+        head->balance += *h;
+        head = balancing(head);
+        if (head == NULL){
+            exit(1);
+        }
+        if (head->balance == 0) {
+            *h = 0;
+        } else {
+            *h = 1;
+        }
+    }
+    return head;
+}
 
 /**
  * @param stationTree
@@ -146,7 +184,7 @@ tree* insertStation(tree* head, Data a, int* h) {
  * @param i
  * Add data to a tree
  */
-void addTree(tree** stationTree, Data b, int* hStation, char* station, Data* tmp, int* i){
+void addTree(tree** stationTree, tree** consoTree, Data b, int* hStation, int* hConso, char* station, Data* tmp, int* i){
     if (hStation == NULL){
         exit(40);
     }
@@ -160,9 +198,10 @@ void addTree(tree** stationTree, Data b, int* hStation, char* station, Data* tmp
             *stationTree = insertStation(*stationTree, b, hStation);
         } else {
             b.id = b.lv;
-            if (tmp->id == b.id) {
+            /*if (tmp->id == b.id) {
                 parcoursRefresh(stationTree, b);
-            }
+            }*/
+            *consoTree = insertConso(*consoTree, b, hConso);
         }
     }
     if (strcmp(station, "hvb") == 0){
@@ -172,9 +211,11 @@ void addTree(tree** stationTree, Data b, int* hStation, char* station, Data* tmp
             *stationTree = insertStation(*stationTree, b, hStation);
         } else {
             b.id = b.hv_b;
-            if (tmp->id == b.id){
+            /*if (tmp->id == b.id){
                 parcoursRefresh(stationTree, b);
-            }
+
+            }*/
+            *consoTree = insertConso(*consoTree, b, hConso);
         }
     }
     if (strcmp(station, "hva") == 0){
@@ -184,9 +225,10 @@ void addTree(tree** stationTree, Data b, int* hStation, char* station, Data* tmp
             *stationTree = insertStation(*stationTree, b, hStation);
         } else {
             b.id = b.hv_a;
-            if (tmp->id == b.id){
+            /*if (tmp->id == b.id){
                 parcoursRefresh(stationTree, b);
-            }
+            }*/
+            *consoTree = insertConso(*consoTree, b, hConso);
         }
     }
 }

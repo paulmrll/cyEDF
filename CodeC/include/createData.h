@@ -21,7 +21,7 @@ FILE* transformerFichier(FILE* fichier);
  * @param type
  * Take data of a File and add it to a tree
  */
-void ensembleDonne(FILE* fichier, int* hStation, tree** stationTree, char* type);
+void ensembleDonne(FILE* fichier, int* hStation, int* hConso, tree** stationTree, tree** consoTree, char* type);
 
 
 #endif //createData

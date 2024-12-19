@@ -13,5 +13,7 @@
 void parcoursRefresh(tree** head, Data a);
 
 void parcours(tree* head);
+void parcours2(Data a, tree** stationTree);
+void parcours1(tree* consoTree, tree** stationTree);
 
 #endif //PARCOURS_H
