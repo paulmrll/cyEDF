@@ -49,5 +49,6 @@ int main(int argc, char* argv[]){
     parcours(stationTree);
     //Initialize tree
     freeAvl(stationTree);
+    freeAvl(consoTree);
     return 0;
 }
